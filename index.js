@@ -1,5 +1,14 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const { AdjustSoftInputMode } = NativeModules;
 
-export default AdjustSoftInputMode;
+export default Platform.select({
+    android: {
+        setAdjustPan: () => AdjustSoftInputMode.setAdjustPan(),
+        setAdjustResize: () => AdjustSoftInputMode.setAdjustResize(),
+    },
+    default: {
+        setAdjustPan: () => { },
+        setAdjustResize: () => { },
+    },
+});
